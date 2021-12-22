@@ -122,6 +122,7 @@ public class Lexicon {
         this.reservedWords.add("segun");
         this.reservedWords.add("de");
         this.reservedWords.add("otro");
+        this.reservedWords.add("caso");
         this.reservedWords.add("modo");
         this.reservedWords.add("subproceso");
         this.reservedWords.add("subalgoritmo");
@@ -144,18 +145,6 @@ public class Lexicon {
         this.reservedWords.add("tecla");
         this.reservedWords.add("segundos");
         this.reservedWords.add("milisegundos");
-        this.reservedWords.add("rc");
-        this.reservedWords.add("raiz");
-        this.reservedWords.add("abs");
-        this.reservedWords.add("ln");
-        this.reservedWords.add("exp");
-        this.reservedWords.add("sen");
-        this.reservedWords.add("cos");
-        this.reservedWords.add("tan");
-        this.reservedWords.add("asen");
-        this.reservedWords.add("acos");
-        this.reservedWords.add("atan");
-        this.reservedWords.add("redon");
         this.reservedWords.add("aleatorio");
         this.reservedWords.add("longitud");
         this.reservedWords.add("mayusculas");
@@ -194,14 +183,14 @@ public class Lexicon {
                 token.setLexeme(tokenLexem.toString().toLowerCase());
                 if (this.operatorToken.containsKey(token.getLexeme())) {
                     token.setType(this.operatorToken.get(token.getLexeme().toLowerCase()));
-                    token.setLexeme("");
+                    //token.setLexeme("");
                 } else if (this.reservedWords.contains(token.getLexeme().toLowerCase())){
                     if(this.isReservedAsToken(token.getLexeme())){
                         token.setType(this.reservedToken.get(token.getLexeme()));
-                        token.setLexeme("");
+                        //token.setLexeme("");
                     }else{
                         token.setType(token.getLexeme().toLowerCase());
-                        token.setLexeme("");
+                        //token.setLexeme("");
                     }
                 } else {
                     token.setType("id");
@@ -209,7 +198,7 @@ public class Lexicon {
             } else if (this.isNumber(symbol)) {
                 if (!this.isNumber(this.input.charAt(this.colIndex))) {
                     token.setType(this.operatorToken.get(token.getLexeme()));
-                    token.setLexeme("");
+                    //token.setLexeme("");
                 } else {
                     symbol = this.input.charAt(this.colIndex);
                     char symbolAux = this.input.charAt(this.colIndex);
@@ -282,13 +271,13 @@ public class Lexicon {
                     if (this.operatorToken.containsKey(doubleSymbol)) {
                         token.setLexeme(doubleSymbol);
                         token.setType(this.operatorToken.get(token.getLexeme()));
-                        token.setLexeme("");
+                        //token.setLexeme("");
                         this.colIndex = this.colIndex + 2;
                         this.col = this.col + 2;
                     } else {
                         token.setLexeme(simpleSymbol);
                         token.setType(this.operatorToken.get(token.getLexeme()));
-                        token.setLexeme("");
+                        //token.setLexeme("");
                         this.colIndex++;
                         this.col++;
                     }
@@ -303,6 +292,7 @@ public class Lexicon {
             }
             this.lineIsCommentOrBlank();
         }
+        this.tokens.add(new Token("eof","eof",this.row+1,this.col));
     }
 
     public void lineIsCommentOrBlank(){
